@@ -1,20 +1,37 @@
 <script lang="ts">
-  import { EventsOn } from '../wailsjs/runtime/runtime';
+  import { EventsOn } from "../wailsjs/runtime/runtime";
 
-  let mechX = 10;
-  let mechY = 10;
+  let baseX = 17.5 * 0;
+  let baseY = 17.5 * 0;
 
-  EventsOn('game-tick', (data: any) => {
+  let mechX = 17.5 * 15;
+  let mechY = 17.5 * 15;
+
+  let enemyMechX = 17.5 * 10;
+  let enemyMechY = 17.5 * 10;
+
+  let enemyBaseX = 17.5 * 39;
+  let enemyBaseY = 17.5 * 39;
+
+  EventsOn("game-tick", (data: any) => {
     mechX = data.x;
     mechY = data.y;
-    console.debug('tick', data);
+    console.debug("tick", data);
   });
 </script>
 
 <main>
-  <div class="gameBoard">
-    <div class="player" style="top: {mechX}px; left: {mechY}px;" />
-    <div class="enemy" style="bottom: 10px; right: 10px;" />
+  <div class="gameFrame">
+    <div class="statsBar">
+      <div class="playerStats">Player: 3</div>
+      <div class="enemyStats">Enemy: 3</div>
+    </div>
+    <div class="gameBoard">
+      <div class="base player" style="top: {baseX}px; left {baseY}px;" />
+      <div class="mech player" style="top: {mechX}px; left: {mechY}px;" />
+      <div class="base enemy" style="top: {enemyBaseX}px; left: {enemyBaseY}px;" />
+      <div class="mech enemy" style="top: {enemyMechX}px; left: {enemyMechY}px;" />
+    </div>
   </div>
 </main>
 
@@ -24,29 +41,60 @@
     height: 100vh;
   }
 
+  .gameFrame {
+    padding: 15px;
+  }
+
+  .statsBar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2rem;
+    color: black;
+  }
+
   .gameBoard {
     position: relative;
-    width: 100%;
-    height: 100%;
+    box-sizing: content-box;
+    aspect-ratio: 1/1;
+    height: calc(700px + 1px);
+    width: calc(700px + 1px);
+
+    background-image: repeating-linear-gradient(
+        #ccc 0 1px,
+        transparent 1px 100%
+      ),
+      repeating-linear-gradient(90deg, #ccc 0 1px, transparent 1px 100%);
+    background-size: 2.5% 2.5%;
   }
 
-  .player {
+  .mech {
     position: absolute;
-    display: inline-block;
+    margin-top: 0.28%;
+    margin-left: 0.28%;
+    height: 2%;
+    width: 2%;
+    border-radius: 50%;
+  }
+
+  .mech.player {
     background-color: orange;
-    content: " ";
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
   }
 
-  .enemy {
-    position: absolute;
-    display: inline-block;
+  .mech.enemy {
     background-color: red;
-    content: " ";
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
+  }
+
+  .base {
+    position: absolute;
+    height: 2.5%;
+    width: 2.5%;
+  }
+
+  .base.player {
+    background-color: green;
+  }
+
+  .base.enemy {
+    background-color: blue;
   }
 </style>

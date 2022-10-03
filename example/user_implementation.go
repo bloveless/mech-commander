@@ -30,15 +30,15 @@ func main() {
 	}
 	defer sock.Close()
 
-	mp := MechPosition{X: 10, Y: 10}
+	mp := MechPosition{X: 0, Y: 0}
 
 	s := bufio.NewScanner(sock)
 	for s.Scan() {
 		tickState := s.Text()
 		fmt.Printf("tickState: %s\n", tickState)
 
-		mp.X += 5
-		mp.Y += 5
+		mp.X += 1
+		mp.Y += 1
 		_, err = sock.Write([]byte(fmt.Sprintf("%d %d\n", mp.X, mp.Y)))
 		if err != nil {
 			log.Fatal("write error:", err)
