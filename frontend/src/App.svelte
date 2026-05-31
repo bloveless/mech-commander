@@ -29,8 +29,14 @@
     <div class="gameBoard">
       <div class="base player" style="top: {baseX}px; left {baseY}px;" />
       <div class="mech player" style="top: {mechX}px; left: {mechY}px;" />
-      <div class="base enemy" style="top: {enemyBaseX}px; left: {enemyBaseY}px;" />
-      <div class="mech enemy" style="top: {enemyMechX}px; left: {enemyMechY}px;" />
+      <div
+        class="base enemy"
+        style="top: {enemyBaseX}px; left: {enemyBaseY}px;"
+      />
+      <div
+        class="mech enemy"
+        style="top: {enemyMechX}px; left: {enemyMechY}px;"
+      />
     </div>
   </div>
 </main>
